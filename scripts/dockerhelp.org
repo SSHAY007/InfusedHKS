@@ -1,0 +1,127 @@
+#+title: Dockerhelp
+* Notes
+
+To rename tags
+I want to eventually change to rootless docker.
+#+begin_src bash
+sudo docker image tag 6d6049d3d56a ppo/myserver:latest
+#+end_src
+flags and their meaning
+
+| -it | Interactively before the run |
+| -p  | Publish                      |
+| -d  | detach                       |
+
+ Volume is for statefull information. I just want to run a python file as it is. Not very useful at the moment
+
+#+begin_src bash
+docker build -t ppo .
+#+end_src
+This builds the docker container using tag ppo. Finding Dockerfile in the "."(current) directory. Remember you have to be connected to the internet. You can not have symbolic links. I was doing this on the ~/OneDrive folder but you cannot do that. I don't know if the docker COPY only copies the current directory at compile time or run time.
+
+I am now running rootless mode. It is not difficult follow the instructions on the website.
+
+1. Disable current root mote
+2. Install from DEB package
+3. Enable
+   Then done
+
+
+* Dockerfile image
+#+begin_src dockerfile
+FROM python:3.6
+
+RUN apt-get -y update && apt-get -y install ffmpeg && apt-get install vim
+# RUN apt-get -y update && apt-get -y install git wget python-dev python3-dev libopenmpi-dev python-pip zlib1g-dev cmake python-opencv
+
+ENV CODE_DIR /root/code
+# ENV allows you to resuse later in the code
+
+# This copies current working dir of system onto CWR on container
+COPY . $CODE_DIR/baselines
+WORKDIR $CODE_DIR/baselines
+
+# Clean up pycache and pyc files
+RUN rm -rf __pycache__ && \
+    find . -name "*.pyc" -delete && \
+    pip install 'tensorflow < 2' && \
+    pip install -U 'mujoco-py<2.2,>=2.1' && \
+    pip install -e .[test]
+
+CMD /bin/bash
+#+end_src
+
+** Copy
+
+Docker copy works the same way as normal copy.
+
+#+begin_src bash
+docker cp <from>\path\from\file <container>:\path\to\file
+docker cp testDocker.py 4f47d3abf009:/root/code
+
+#+end_src
+Make sure that the container is running
+#+begin_src bash
+docker cp testDocker.py c88c035ac1ce:/root/code/baselines
+#+end_src
+** running
+Running interactively
+#+begin_src bash
+
+docker run -it ppo-----------------------------------+
+     +-------                                        |
+     |                                               |
+-it for interactive mode            ppo container tag name>
+
+#+end_src
+
+** Mounting
+
+#+begin_src bash
+docker run -it -v myvol1:/home/ ppo
+docker run -it --mount type=bind,source="$PWD"/myvol1,target=/home  ppo
+docker run -it --mount type=bind,source="$PWD"/myvol,target=/root/code/baselines/src hks
+#+end_src
+You have to specify the absolute path. Not like
+#+begin_src bash
+#This will not work
+docker run -it --mount type=bind,source=myvol1,target=/home  ppo
+#+end_src
+Have to specify at run time.
+
+* tar
+
+#+begin_src bash
+tar -xf <filename>
+#+end_src
+-x is to extract
+-f is the filename
+
+
+
+
+becareful which python version you have. This effects everything.
+
+* OpenGL
+
+OpenGL has to have access to some graphical interface. When you run openGL on
+
+[[https://medium.com/@benjamin.botto/opengl-and-cuda-applications-in-docker-af0eece000f1#:~:text=OpenGL%20code%20can%20be%20compiled,seen%20on%20the%20host%20machine.][useful]]
+#+begin_src bash
+docker run --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY  hks2
+#+end_src
+
+* To running
+#+begin_src bash
+
+docker run --mount type=bind,source="$PWD"/src,target=/root/code/baselines/src --rm -it -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY  hks2
+#+end_src
+#+begin_src
+
+docker run --mount type=bind,source="$PWD"/src,target=/root/code/baselines/src \
+--rm \
+-it \
+-v /tmp/.X11-unix:/tmp/.X11-unix \
+-e DISPLAY=$DISPLAY \
+hks2
+#+end_src
