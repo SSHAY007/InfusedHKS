@@ -3,12 +3,12 @@ FROM python:3.10
 #can pass argument when buliding
 ARG user1=rootUser
 ENV CODE_DIR /root/code
-COPY src $CODE_DIR/baselines/src
-COPY setup.py $CODE_DIR/baselines
-COPY requirements.txt $CODE_DIR/baselines
+COPY ./../src $CODE_DIR/baselines/src
+COPY /scripts/setup.py $CODE_DIR/baselines
+COPY ./scripts/requirements.txt $CODE_DIR/baselines
 WORKDIR $CODE_DIR/baselines
 
-COPY cuda-keyring_1.0-1_all.deb $CODE_DIR/baselines
+COPY ./scripts/cuda-keyring_1.0-1_all.deb $CODE_DIR/baselines
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -43,9 +43,9 @@ ENV LD_LIBRARY_PATH /root/.mujoco/mjpro150/bin:${LD_LIBRARY_PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 
-COPY vendor/Xdummy /usr/local/bin/Xdummy
+COPY ./scripts/vendor/Xdummy /usr/local/bin/Xdummy
 RUN chmod +x /usr/local/bin/Xdummy
-COPY ./vendor/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+COPY ./scripts/vendor/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 # Installing the mujoco binaries
 RUN cd ~ && \
@@ -56,7 +56,7 @@ RUN cd ~ && \
     tar -xzf mujoco.tar.gz -C mjpro150 --strip-components=1 && \
     export PATH=$PATH:~/.mujoco/mjpro150/bin/
 #Copy the license over
-COPY mjkey.txt ~/.mujoco/mjpro150/
+COPY ./scripts/mjkey.txt ~/.mujoco/mjpro150/
 # Clean up pycache and pyc files
 RUN rm -rf __pycache__ && \
     find . -name "*.pyc" -delete && \

@@ -1,5 +1,3 @@
-from google.colab import files
-
 import distutils.util
 import os
 import subprocess
