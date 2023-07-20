@@ -242,7 +242,7 @@ class REINFORCE:
 env = gym.make("InvertedPendulum-v4")
 wrapped_env = gym.wrappers.RecordEpisodeStatistics(env, 50)  # Records episode-reward
 
-total_num_episodes = int(5e3)  # Total number of episodes
+total_num_episodes = 100  # Total number of episodes
 # Observation-space of InvertedPendulum-v4 (4)
 obs_space_dims = env.observation_space.shape[0]
 # Action-space of InvertedPendulum-v4 (1)
