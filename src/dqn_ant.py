@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+
+#!/usr/bin/env python3
 from __future__ import annotations
 from gym.wrappers.record_video import RecordVideo
 import random
@@ -18,12 +21,13 @@ import gym
 import tensorflow as tf
 from tqdm import tqdm
 
+
 #display = Display(visible=0, size=(1400, 900))
 #display.start()
 
 #plt.rcParams["figure.figsize"] = (10, 5)
 #env = gym.make('Pendulum-v4')
-env = gym.make("InvertedPendulum-v4",render_mode="rgb_array")
+env = gym.make("Ant-v4",render_mode="rgb_array")
 #wrapped_env = gym.wrappers.RecordEpisodeStatistics(env, 50)  # Records episode-reward
 #env = gym.make('CartPole-v1', render_mode="rgb_array")
 num_actions = env.action_space.shape[0]

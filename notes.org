@@ -1,0 +1,11 @@
+#+title: Notes
+
+* GradientTape
+This is a level lower than model.fit() while performing backpropagation. Which can be seen [[https://www.tensorflow.org/guide/autodiff][here]].
+
+
+* TODO
+1. Perform DQN on Ant.
+2. Perform PPO on Ant.
+3. Perform HKS on Ant.
+4. Adapt environment

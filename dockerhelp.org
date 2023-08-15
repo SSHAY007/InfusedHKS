@@ -125,3 +125,18 @@ docker run --mount type=bind,source="$PWD"/src,target=/root/code/baselines/src \
 -e DISPLAY=$DISPLAY \
 hks2
 #+end_src
+
+* Notes
+#+begin_src bash
+docker run --mount type=bind,source="$PWD",target=/workspace -it --entrypoint /bin/bash nle
+#+end_src
+Docker is going to need poly beast and skillhack
+As mentioned in the comments:
+
+You should just put COPY . . before RUN pip install xyz/python
+(otherwise the xyz folder won't be available in the docker context during the image build)
+
+And RUN mkdir /app can/should also be removed, because WORKDIR /app itself is the Dockerfile equivalent of mkdir -p /app && cd /app.
+
+
+You must have some basic knowledge of setup.py and pyproject.py to understand how the pip installations work. Understand Conda aswell.
