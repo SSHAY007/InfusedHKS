@@ -11,10 +11,11 @@ RUN apt-get update && apt-get install -yq \
         curl \
         flex \
         git \
-        libbz2-dev \
+    libbz2-dev \
+    zlib1g-dev \
         ninja-build \
         wget
-
+# zlib1g is for pip install -r requirements.txt for torchbeast
 WORKDIR /opt/conda_setup
 
 RUN curl -o miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
@@ -27,27 +28,23 @@ ENV PATH /opt/conda/bin:$PATH
 RUN python -m pip install --upgrade pip ipython ipdb
 
 WORKDIR /opt
-RUN git clone https://github.com/facebookresearch/minihack.git
-RUN cd minihack \
+RUN git clone https://github.com/facebookresearch/minihack.git && \
+    cd minihack && \
     pip install '.[all]'
 
 
-WORKDIR /opt
-RUN git clone https://github.com/facebookresearch/torchbeast.git
-RUN cd torchbeast \
-    pip install -r requirements.txt \
-    git submodule update --init --recursive \
-    pip install nest/ \
-    python setup.py install
+RUN git clone https://github.com/facebookresearch/torchbeast.git && \
+ conda create --name torchbeast && \
+ activate torchbeast && \
+ cd torchbeast && \
+ git submodule update --init --recursive && \
+ pip install -r requirements.txt && \
+ pip install nest/ && \
+ python setup.py install
 
 
 WORKDIR /opt/minihack
 RUN  pip install ".[polybeast]"
-
-#installing torchbeast
-#RUN conda create -n minihack python=3.8 \
-#    conda activate minihack \
-#    pip install minihack \
 
 
 #WORKDIR /opt/nle
@@ -56,6 +53,9 @@ RUN  pip install ".[polybeast]"
 # Don't have to do this because it is already within the repo
 #RUN git clone https://github.com/facebookresearch/minihack.git \
 #    cd minihack \
+#    conda is a package manager that can handle non-python files. It handles binaries which makes it much better for environment handling
+#    python has its own environment handling called venv
+#    the backslash is continuiation line
 
 
 

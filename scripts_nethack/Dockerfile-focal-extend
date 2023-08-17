@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -yq \
         flex \
         git \
         libbz2-dev \
+        zlib1g-dev \
         ninja-build \
         wget
 
@@ -28,15 +29,15 @@ RUN python -m pip install --upgrade pip ipython ipdb
 
 COPY . /opt/minihack/
 WORKDIR /opt/minihack
-#RUN pip install '.[all]'
+RUN pip install '.[all]'
 
 
 WORKDIR /opt/torchbeast
 RUN git clone https://github.com/facebookresearch/torchbeast.git
-RUN cd torchbeast \
-    pip install -r requirements.txt \
-    git submodule update --init --recursive \
-    pip install nest/k \
+RUN cd torchbeast && \
+    pip install -r requirements.txt &&\
+    git submodule update --init --recursive &&\
+    pip install nest/k && \
     python setup.py install
 
 
