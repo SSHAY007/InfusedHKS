@@ -1,0 +1,3 @@
+[submodule "src/skillhack"]
+	path = src/skillhack
+	url = https://github.com/ucl-dark/skillhack.git
