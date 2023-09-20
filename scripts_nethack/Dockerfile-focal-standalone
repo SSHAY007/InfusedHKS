@@ -60,8 +60,9 @@ RUN  pip install ".[polybeast]"
 
 
 WORKDIR /workspace
+RUN export SKILL_TRANSFER_HOME="$PWD"/weights_agent
 CMD ["/bin/bash"]
-
+# run on home
 
 # Docker commands:
 #   docker rm nle -v

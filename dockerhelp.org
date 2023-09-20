@@ -140,3 +140,27 @@ And RUN mkdir /app can/should also be removed, because WORKDIR /app itself is th
 
 
 You must have some basic knowledge of setup.py and pyproject.py to understand how the pip installations work. Understand Conda aswell.
+
+#+begin_src bash
+docker run --mount type=bind,source="$PWD",target=/workspace \
+      --rm \
+      -it \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+      -e DISPLAY=$DISPLAY \
+      --ulimit nofile=262144:262144 \
+       hks_latest
+#+end_src
+
+#+begin_src bash
+# The single slash is for continuation line \
+# The single "&" is to run a comand in parallel
+# The souble "&& " means to run A then B
+
+git clone <url>skillhack && cd skillhack
+
+# can't do
+
+git clone <url>skillhack & cd skillhack
+# since cd skillhack may finish first when it does not exiist from the git clone
+
+#+end_src

@@ -9,3 +9,17 @@ This is a level lower than model.fit() while performing backpropagation. Which c
 2. Perform PPO on Ant.
 3. Perform HKS on Ant.
 4. Adapt environment
+
+* Polybeast and torchbeats
+
+
+** TODO : new
+1. Perform baseline on Ant using polyhydra then you can add the rest:
+   Use the poly hydra libary and build upon that
+2. Perform HKS on Ant
+3. Make own environment
+
+* Questions
+-> What is Policy Approximations, Help understanding page 349
+-> Have some questions about IID
+-> I have to adapt the polybeast_learner.py to the Ant but I am not sure how to do that. Where do I even start. I am wondering if A3C will work in Mojoco because they do say only Atari things

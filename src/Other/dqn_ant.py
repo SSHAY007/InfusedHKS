@@ -27,7 +27,7 @@ from tqdm import tqdm
 
 #plt.rcParams["figure.figsize"] = (10, 5)
 #env = gym.make('Pendulum-v4')
-env = gym.make("Ant-v4",render_mode="rgb_array")
+env = gym.make("Ant-v2",render_mode="rgb_array")
 #wrapped_env = gym.wrappers.RecordEpisodeStatistics(env, 50)  # Records episode-reward
 #env = gym.make('CartPole-v1', render_mode="rgb_array")
 num_actions = env.action_space.shape[0]
