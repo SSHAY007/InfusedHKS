@@ -1,0 +1,28 @@
+2023-09-21 11:43:33,451 INFO    MainThread:214008 [wandb_setup.py:_flush():76] Current SDK version is 0.15.10
+2023-09-21 11:43:33,451 INFO    MainThread:214008 [wandb_setup.py:_flush():76] Configure stats pid to 214008
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_setup.py:_flush():76] Loading settings from /home/akshay/.config/wandb/settings
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_setup.py:_flush():76] Loading settings from /home/akshay/Documents/Honours_offline/Honours_research/InfusedHKS/src/ppo/wandb/settings
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'src/ppo/ppo_continuous_action.py', 'program': '/home/akshay/Documents/Honours_offline/Honours_research/InfusedHKS/src/ppo/ppo_continuous_action.py'}
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_init.py:_log_setup():524] Logging user logs to /home/akshay/Documents/Honours_offline/Honours_research/InfusedHKS/src/ppo/wandb/run-20230921_114333-jb5i3ucc/logs/debug.log
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_init.py:_log_setup():525] Logging internal logs to /home/akshay/Documents/Honours_offline/Honours_research/InfusedHKS/src/ppo/wandb/run-20230921_114333-jb5i3ucc/logs/debug-internal.log
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_init.py:init():564] calling init triggers
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_init.py:init():571] wandb.init called with sweep_config: {}
+config: {'exp_name': 'ppo_continuous_action', 'seed': 1, 'torch_deterministic': True, 'cuda': True, 'track': True, 'wandb_project_name': 'cleanRL', 'wandb_entity': None, 'capture_video': False, 'env_id': 'HalfCheetah-v4', 'total_timesteps': 1000000, 'learning_rate': 0.0003, 'num_envs': 1, 'num_steps': 2048, 'anneal_lr': True, 'gamma': 0.99, 'gae_lambda': 0.95, 'num_minibatches': 32, 'update_epochs': 10, 'norm_adv': True, 'clip_coef': 0.2, 'clip_vloss': True, 'ent_coef': 0.0, 'vf_coef': 0.5, 'max_grad_norm': 0.5, 'target_kl': None, 'batch_size': 2048, 'minibatch_size': 64}
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_init.py:init():614] starting backend
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [wandb_init.py:init():618] setting up manager
+2023-09-21 11:43:33,452 INFO    MainThread:214008 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2023-09-21 11:43:33,453 INFO    MainThread:214008 [wandb_init.py:init():624] backend started and connected
+2023-09-21 11:43:33,454 INFO    MainThread:214008 [wandb_init.py:init():715] updated telemetry
+2023-09-21 11:43:33,456 INFO    MainThread:214008 [wandb_init.py:init():748] communicating run to backend with 90.0 second timeout
+2023-09-21 11:43:34,248 INFO    MainThread:214008 [wandb_run.py:_on_init():2220] communicating current version
+2023-09-21 11:43:34,431 INFO    MainThread:214008 [wandb_run.py:_on_init():2229] got version response 
+2023-09-21 11:43:34,431 INFO    MainThread:214008 [wandb_init.py:init():799] starting run threads in backend
+2023-09-21 11:43:34,468 INFO    MainThread:214008 [wandb_run.py:_console_start():2199] atexit reg
+2023-09-21 11:43:34,468 INFO    MainThread:214008 [wandb_run.py:_redirect():2054] redirect: wrap_raw
+2023-09-21 11:43:34,468 INFO    MainThread:214008 [wandb_run.py:_redirect():2119] Wrapping output streams.
+2023-09-21 11:43:34,468 INFO    MainThread:214008 [wandb_run.py:_redirect():2144] Redirects installed.
+2023-09-21 11:43:34,468 INFO    MainThread:214008 [wandb_init.py:init():840] run started, returning control to user process
+2023-09-21 11:43:34,468 INFO    MainThread:214008 [wandb_run.py:_tensorboard_callback():1470] tensorboard callback: runs/HalfCheetah-v4__ppo_continuous_action__1__1695289412, True
+2023-09-21 11:58:05,111 WARNING MsgRouterThr:214008 [router.py:message_loop():77] message_loop has been closed

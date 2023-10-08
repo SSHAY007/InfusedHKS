@@ -1,0 +1,10 @@
+services:
+  app:
+    build: . 
+    volumes:
+      - ${PWD}:/workspace
+    entrypoint:
+      - /bin/bash
+
+
+  #docker run --mount type=bind,source="$PWD",target=/workspace -it --entrypoint /bin/bash hks_latest

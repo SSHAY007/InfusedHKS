@@ -1,0 +1,102 @@
+{
+    "os": "Linux-6.2.0-32-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "heartbeatAt": "2023-09-21T09:43:34.442788",
+    "startedAt": "2023-09-21T09:43:33.451338",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--track"
+    ],
+    "state": "running",
+    "program": "/home/akshay/Documents/Honours_offline/Honours_research/InfusedHKS/src/ppo/ppo_continuous_action.py",
+    "codePathLocal": "ppo_continuous_action.py",
+    "codePath": "src/ppo/ppo_continuous_action.py",
+    "git": {
+        "remote": "git@github.com:SSHAY007/InfusedHKS.git",
+        "commit": "ea09013630e155597fd4a6949cda07ab3e3f6179"
+    },
+    "email": "akshay.makhan@gmail.com",
+    "root": "/home/akshay/Documents/Honours_offline/Honours_research/InfusedHKS",
+    "host": "Shay",
+    "username": "akshay",
+    "executable": "/usr/bin/python3",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 3578.8295833333336,
+        "min": 800.0,
+        "max": 4400.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 4201.474,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 4253.804,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 4236.651,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 4355.537,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 4201.392,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 4367.797,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 4329.3,
+            "min": 800.0,
+            "max": 4400.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4400.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 937.3305015563965,
+            "used": 209.029541015625
+        }
+    },
+    "memory": {
+        "total": 31.128082275390625
+    }
+}

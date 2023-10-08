@@ -26,6 +26,11 @@ I am now running rootless mode. It is not difficult follow the instructions on t
 3. Enable
    Then done
 
+   #+begin_src bash
+    docker build -t hks:v2 -f Dockerfile-focal-standalone .
+   #+end_src
+
+
 
 * Dockerfile image
 #+begin_src dockerfile
@@ -163,4 +168,49 @@ git clone <url>skillhack && cd skillhack
 git clone <url>skillhack & cd skillhack
 # since cd skillhack may finish first when it does not exiist from the git clone
 
+#+end_src
+* Running docker file with args
+
+
+   #+begin_src bash
+    docker build --build-arg=SKILL_TRANSFER_HOME=<file> -t hks:v2 -f Dockerfile-focal-standalone .
+   #+end_src
+
+   #+begin_src bash
+    docker run --mount type=bind,source="$PWD",target=/workspace -it --entrypoint /bin/bash hks:<version>
+
+
+   #+end_src
+
+* launch.json for vscode
+#+begin_src json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: agent.torchbeat",
+            "type": "python",
+            "request": "launch",
+            "module": "agent.polybeast.skill_transfer_polyhydra",
+            "args": [
+                    "model=baseline",
+                    "env=mini_skill_fight",
+                    "use_lstm=false",
+                    "total_steps=1e7"
+            ]
+
+        }
+    ]
+}
+#+end_src
+* Do not
+If you having an issue with one of the layers. Build without using cache because this could store an erroneous bug.
+#+begin_src dockerfile
+#RUN export SKILL_TRANSFER_HOME="$PWD"/weights_agent
+#RUN export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME} my mistake was using RUN. RUN is used to build the container
+# I needed CMD to do something everytime I start the container
+CMD ["export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME}}"]
 #+end_src

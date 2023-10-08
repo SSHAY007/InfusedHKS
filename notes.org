@@ -23,3 +23,31 @@ This is a level lower than model.fit() while performing backpropagation. Which c
 -> What is Policy Approximations, Help understanding page 349
 -> Have some questions about IID
 -> I have to adapt the polybeast_learner.py to the Ant but I am not sure how to do that. Where do I even start. I am wondering if A3C will work in Mojoco because they do say only Atari things
+
+
+* Pivot
+-> PPO on cheata
+-> Figure out how they save their skills
+I think they save the dict from hks
+-> make custom cheata , Walk straight, Different incline, turn.
+-> Use all these skills to make cheata catch the ball
+
+* Goal get results,
+Don't have to understand, understand by practice
+
+
+* Setup for SKILLHACK
+
+
+Evaluate is the main  --
+                        \-
+                          \--
+                             \-
+                               \-
+                                 \----create_model whic his in models.__init__
+
+* PPO uses Policy gradient method that uses clipping and KL divergence
+
+They do not use a gradient in some places because of automatic differentation takes care of this.
+* TODO :
+I dont' know what to do. I need to somehow find how they extract the options, I need the options. I don't know how they get the skills. I need the skills aswell from simple PPO and DQN , I can't be making them myself

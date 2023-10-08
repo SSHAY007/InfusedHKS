@@ -1,0 +1,81 @@
+
+
+
+FROM nvidia/cuda:11.4.3-devel-ubuntu20.04
+
+ARG PYTHON_VERSION=3.8
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+
+ARG SKILL_TRANSFER_HOME=skill_transfer_weights
+
+RUN apt-get update && apt-get install -yq \
+        bison \
+        build-essential \
+        curl \
+        flex \
+        git \
+    libbz2-dev \
+    zlib1g-dev \
+        ninja-build \
+        wget
+# zlib1g is for pip install -r requirements.txt for torchbeast
+WORKDIR /opt/conda_setup
+
+RUN curl -o miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+     chmod +x miniconda.sh && \
+     ./miniconda.sh -b -p /opt/conda && \
+     /opt/conda/bin/conda install -y python=$PYTHON_VERSION && \
+     /opt/conda/bin/conda clean -ya
+ENV PATH /opt/conda/bin:$PATH
+
+RUN python -m pip install --upgrade pip ipython ipdb
+
+WORKDIR /opt
+RUN git clone https://github.com/facebookresearch/minihack.git && \
+    #cmake on ubuntu not right version
+    conda install cmake &&\
+    cd minihack && \
+    pip install '.[all]'
+
+
+RUN git clone https://github.com/facebookresearch/torchbeast.git && \
+ conda create --name torchbeast && \
+ activate torchbeast && \
+ cd torchbeast && \
+ git submodule update --init --recursive && \
+ pip install -r requirements.txt && \
+ pip install nest/ && \
+ python setup.py install
+
+
+WORKDIR /opt/minihack
+RUN  pip install ".[polybeast]"
+
+
+#WORKDIR /opt/nle
+#RUN  pip install ".[polybeast]"
+
+# Don't have to do this because it is already within the repo
+#RUN git clone https://github.com/facebookresearch/minihack.git \
+#    cd minihack \
+#    conda is a package manager that can handle non-python files. It handles binaries which makes it much better for environment handling
+#    python has its own environment handling called venv
+#    the backslash is continuiation line
+
+
+
+WORKDIR /workspace
+#RUN export SKILL_TRANSFER_HOME="$PWD"/weights_agent
+#RUN export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME} my mistake was using RUN. RUN is used to build the container
+# I needed CMD to do something everytime I start the container
+CMD ["export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME}}"]
+CMD ["/bin/bash"]
+# run on home
+
+# Docker commands:
+#   docker rm nle -v
+#   docker build -t nle -f docker/Dockerfile-focal .
+#   docker run --gpus all --rm --name nle nle
+# or
+#   docker run --gpus all -it --entrypoint /bin/bash nle

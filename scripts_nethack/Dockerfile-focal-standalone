@@ -4,6 +4,8 @@ ARG PYTHON_VERSION=3.8
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
 
+ARG SKILL_TRANSFER_HOME=skill_transfer_weights
+
 RUN apt-get update && apt-get install -yq \
         bison \
         build-essential \
@@ -60,7 +62,8 @@ RUN  pip install ".[polybeast]"
 
 
 WORKDIR /workspace
-RUN export SKILL_TRANSFER_HOME="$PWD"/weights_agent
+#RUN export SKILL_TRANSFER_HOME="$PWD"/weights_agent
+RUN export SKILL_TRANSFER_HOME="$PWD"/${SKILL_TRANSFER_HOME}
 CMD ["/bin/bash"]
 # run on home
 
@@ -70,3 +73,6 @@ CMD ["/bin/bash"]
 #   docker run --gpus all --rm --name nle nle
 # or
 #   docker run --gpus all -it --entrypoint /bin/bash nle
+
+
+# NOTE: This sometimes gives cmake error issues. cmake must be 18. The v1 changes this so conda instlls cmake instead.
