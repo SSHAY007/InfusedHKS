@@ -214,3 +214,11 @@ If you having an issue with one of the layers. Build without using cache because
 # I needed CMD to do something everytime I start the container
 CMD ["export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME}}"]
 #+end_src
+
+* ENV and ARG
+
+cant just do RUN export ...
+since export is used for environment variabels we have to use the 
+The ENV in docker will allow you to export environment persistanty when you run containers
+
+ENV <env_name> value:<env_name>

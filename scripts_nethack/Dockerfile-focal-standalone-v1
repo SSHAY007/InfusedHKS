@@ -66,6 +66,10 @@ RUN  pip install ".[polybeast]"
 
 
 WORKDIR /workspace
+
+RUN pip install gymnasium \
+gymnasium[mujoco]
+
 #RUN export SKILL_TRANSFER_HOME="$PWD"/weights_agent
 #RUN export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME} my mistake was using RUN. RUN is used to build the container
 # I needed CMD to do something everytime I start the container

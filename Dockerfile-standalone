@@ -1,15 +1,17 @@
 FROM nvidia/cuda:11.4.3-devel-ubuntu20.04
 
+#ENV is available during the build and runtime of container
 ARG PYTHON_VERSION=3.8
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+ENV SKILL_TRANSFER_HOME=skill_transfer_weights 
+ARG MUJOCO_FILEVERSION=mujoco210
+#/root/.mujoco/mujoco210
 
-ARG SKILL_TRANSFER_HOME=skill_transfer_weights
+RUN apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
 
 RUN apt-get update && apt-get install -yq \
         bison \
         build-essential \
-        cmake \
         curl \
         flex \
         git \
@@ -29,12 +31,28 @@ ENV PATH /opt/conda/bin:$PATH
 
 RUN python -m pip install --upgrade pip ipython ipdb
 
+
+# Installing mujoco for lower verions of gym
+# workdir will create the directory if needed
+WORKDIR /root/.mujoco/${MUJOCO_FILEVERSION}
+RUN curl -L -o mujoco.tar.gz https://github.com/google-deepmind/mujoco/releases/download/2.1.0/mujoco210-linux-x86_64.tar.gz && \
+    tar -xzf mujoco.tar.gz --strip-components=1 --no-same-owner  
+ENV LD_LIBRARY_PATH /root/.mujoco/${MUJOCO_FILEVERSION}/bin:${LD_LIBRARY_PATH}
+RUN apt-get install -y libosmesa6-dev patchelf && \
+                pip install "cython<3"\
+                gymnasium\
+                mujoco-py\
+                gymnasium[mujoco]
+
+#installing minihack
 WORKDIR /opt
 RUN git clone https://github.com/facebookresearch/minihack.git && \
+    #cmake on ubuntu not right version
+    conda install cmake &&\
     cd minihack && \
     pip install '.[all]'
 
-
+#installing plolybeast
 RUN git clone https://github.com/facebookresearch/torchbeast.git && \
  conda create --name torchbeast && \
  activate torchbeast && \
@@ -61,10 +79,14 @@ RUN  pip install ".[polybeast]"
 
 
 
+
 WORKDIR /workspace
 #RUN export SKILL_TRANSFER_HOME="$PWD"/weights_agent
-RUN export SKILL_TRANSFER_HOME="$PWD"/${SKILL_TRANSFER_HOME}
-#CMD ["/bin/bash"] 
+#RUN export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME} my mistake was using RUN. RUN is used to build the container
+# I needed CMD to do something everytime I start the container
+CMD ["export SKILL_TRANSFER_HOME=${SKILL_TRANSFER_HOME}}"]
+CMD ["export PATH=$PATH:~/.mujoco/${MUJOCO_FILEVERSION}/bin"]
+CMD ["/bin/bash"]
 # run on home
 
 # Docker commands:
@@ -74,5 +96,5 @@ RUN export SKILL_TRANSFER_HOME="$PWD"/${SKILL_TRANSFER_HOME}
 # or
 #   docker run --gpus all -it --entrypoint /bin/bash nle
 
-
-# NOTE: This sometimes gives cmake error issues. cmake must be 18. The v1 changes this so conda instlls cmake instead.
+# This dockerfile has the nethack environment and the mujoco210 installation
+# It has exported the necessarty things.
